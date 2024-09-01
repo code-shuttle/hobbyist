@@ -191,4 +191,147 @@ Text battle scene or display method.
 It will need two Entity for attackerEntity and defenderEntity, a GameEntity, and GameStory.
 
 ## GameBattle.cs
+For this class will hold the game battle.
+
+This method is the roaming action.
+```
+        public void Roaming(Entity adventurer, GameEntity gameEntity, GameStory gameStory)
+        {
+            while (true)
+            {
+                Console.Clear();
+
+                Entity slime = gameEntity.Slime();
+
+                gameStory.DungeonRoaming();
+
+                Console.WriteLine($"\t[{slime.Name}] detected...");
+
+                gameEntity.DisplayEntity(slime);
+
+                Console.WriteLine($"{Environment.NewLine}\t[y] Kill the {slime.Name}");
+                Console.WriteLine($"\t[x] Return");
+                Console.Write("\t>> ");
+                ConsoleKey consoleKey = Console.ReadKey().Key;
+
+                if (consoleKey == ConsoleKey.Y)
+                {
+                    Battle(adventurer, slime, gameEntity, gameStory);
+                    Thread.Sleep(1000);
+                }
+                else if (consoleKey == ConsoleKey.X)
+                {
+                    Console.Clear();
+                    break;
+                }
+            }
+        }
+```
+It will instantiate the slime monster. Using the conditional statement to proceed or decline the action.
+
+The battle method.
+```
+        public void Battle(Entity adventurer, Entity slime, GameEntity gameEntity, GameStory gameStory)
+        {
+            while (true)
+            {
+                Console.Clear();
+                gameStory.Loading("Load_", 500);
+                gameStory.CharacterStatus(adventurer, gameEntity);
+                gameStory.CharacterStatus(slime, gameEntity);
+                gameStory.Loading("Load_", 500 );
+                Console.WriteLine($"\t[{adventurer.Name}] vs [{slime.Name}]{Environment.NewLine}");
+
+                gameStory.BattleScene(adventurer, slime, gameEntity, gameStory);
+
+                gameStory.BattleScene(slime, adventurer, gameEntity, gameStory);
+
+                gameStory.BattleScene(adventurer, slime, gameEntity, gameStory);
+
+                gameStory.FinishedBattle(500);
+
+                Console.WriteLine("\t[Good Work!]");
+                Thread.Sleep(500);
+                gameStory.Loading("Done", 1000);
+
+                break;
+            }
+        }
+```
+Utilizing the control-flow statement to have an infinite slime monster battle. Use the GameStory methods to display the battle scene and other display needed.
+
 ## Program.cs
+In this file is the entry point of the program.
+
+In here we have the Main function which is the entry point of the program. It is also the main screen or display lives. Using the selection-control mechanism for the selection to select whether to start game or exit game.
+```
+internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool isCompleted = false;
+            GameEntity gameEntity = new GameEntity();
+            GameStory gameStory = new GameStory();
+
+            while (!isCompleted)
+            {
+                Console.WriteLine($"{Environment.NewLine}\t********************************");
+                Console.WriteLine($"\t\tEndless Dungeon");
+                Console.WriteLine($"\t\t [Mini Game]");
+                Console.WriteLine($"\t********************************{Environment.NewLine}");
+
+                Console.WriteLine("\tPress [y] - Start the game. ");
+                Console.WriteLine("\tPress [x] - Exit the game. ");
+                Console.WriteLine($"{Environment.NewLine}\t********************************");
+                Console.Write($"\t>> ");
+                
+                ConsoleKey consoleKey = Console.ReadKey().Key;
+
+                switch (consoleKey)
+                {
+                    case ConsoleKey.Y:
+                        StartGame(gameEntity, gameStory);
+                        break;
+                    case ConsoleKey.X:
+                        isCompleted = true;
+                        break;
+                    default:
+                        Console.Error.WriteLine(" - [Error] press 'y' to exit...");
+                        break;
+                }
+            }
+        }
+
+        private static void StartGame(GameEntity gameEntity, GameStory gameStory)
+        {
+            while (true)
+            {
+                gameStory.GameIntro();
+
+                Entity adventurer = gameEntity.Character();
+
+                gameStory.FirstFloor(adventurer, gameEntity);
+
+                Console.WriteLine($"{Environment.NewLine}\tPress [y] - Begin. ");
+                Console.WriteLine($"\tPress [x] - Return. ");
+                Console.Write("\t>> ");
+                ConsoleKey consoleKey = Console.ReadKey().Key;
+
+                if (consoleKey == ConsoleKey.X)
+                {
+                    Console.Clear();
+                    break;
+                }
+                else if (consoleKey == ConsoleKey.Y)
+                {
+                    GameBattle gameBattle = new GameBattle();
+
+                    gameBattle.Roaming(adventurer, gameEntity, gameStory);
+                }
+            }
+        }
+    }
+```
+If the selection is true for start game. The StartGame function kicks in.
+
+
