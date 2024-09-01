@@ -334,4 +334,8 @@ internal class Program
 ```
 If the selection is true for start game. The StartGame function kicks in.
 
-
+> [!NOTE]
+> This simple project is not complete or production ready.
+> This project is my hobby for self and skill improvement.
+> Or discovering new things.
+> Feel try to ask question about how I build it.
