@@ -13,7 +13,7 @@ Building this simple text-base game utilizing the Object-oriented programming la
 
 
 ## Entity.cs
-Inside this file it will have the interface called "IEnity" and a class called "Enity".
+Inside this file it will have the interface called "IEntity" and a class called "Entity".
 
 ```
     public interface IEntity
@@ -30,7 +30,51 @@ Inside this file it will have the interface called "IEnity" and a class called "
         public int Attack { get; set; }
     }
 ```
+The Entity class will have an interface called IEntity.
+
 ## GameEntity.cs
+In this class the creation or instantiation of the game entity which the main character "Endless" and the "Slime" monster.
+
+This is for the main character. Named "Endless".
+```
+        public Entity Character()
+        {
+            string name = "Endless";
+            Entity entity = new Entity();
+            
+            entity.Name = name;
+            entity.Health = 100;
+            entity.Attack = 25;
+
+            return entity;
+        }
+```
+
+This is for the monster. Named "Slime".
+```
+        public Entity Slime()
+        {
+            string name = "Slime";
+            Entity entity = new Entity();
+
+            entity.Name = name;
+            entity.Health = 50;
+            entity.Attack = 15;
+
+            return entity;
+        }
+```
+
+A display method called DisplayEntity().
+```
+        public string DisplayEntity(Entity entity)
+        {
+            return $"\tName   : {entity.Name}{Environment.NewLine}" +
+                   $"\tHealth : {entity.Health}{Environment.NewLine}" +
+                   $"\tAttack : {entity.Attack}{Environment.NewLine}";
+        }
+```
+
 ## GameStory.cs
 ## GameBattle.cs
 ## Program.cs
