@@ -301,7 +301,7 @@ Edit customer information.
         }
 ```
 
-``
+```
         /// <summary>
         /// Delete customer information in the list.
         /// </summary>
@@ -337,7 +337,7 @@ Edit customer information.
             }
             
         }
-``
+```
 
 > [!NOTE]
 > This simple project is not complete or production ready.
