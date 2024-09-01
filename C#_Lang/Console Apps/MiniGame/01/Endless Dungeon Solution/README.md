@@ -1,2 +1,5 @@
-# hobbyist
-Building random things...
+# Endless Dungeon
+## Text-Based Mini Game
+
+> [!NOTE]
+> 
