@@ -13,6 +13,23 @@ Building this simple text-base game utilizing the Object-oriented programming la
 
 
 ## Entity.cs
+Inside this file it will have the interface called "IEnity" and a class called "Enity".
+
+```
+    public interface IEntity
+    {
+        string Name { get; set; }
+        int Health { get; set; }
+        int Attack { get; set; }
+    }
+    public class Entity : IEntity
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public int Health { get; set; }
+        public int Attack { get; set; }
+    }
+```
 ## GameEntity.cs
 ## GameStory.cs
 ## GameBattle.cs
